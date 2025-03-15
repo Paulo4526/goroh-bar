@@ -30,7 +30,7 @@ public class DrinkSecutiry {
     private static final String[] WHITE_LIST_URL = { "/api/v1/auth/**", "/v2/api-docs", "/v3/api-docs",
             "/v3/api-docs/**", "/swagger-resources", "/swagger-resources/**", "/configuration/ui",
             "/configuration/security", "/swagger-ui/**", "/webjars/**", "/swagger-ui.html", "/api/auth/**",
-            "/api/test/**", "/authenticate" };
+            "/api/test/**", "/authenticate", "/gorohbebidas/**" };
 
     @Bean
     public SecurityFilterChain securityFilter(HttpSecurity http) throws Exception {
@@ -41,7 +41,7 @@ public class DrinkSecutiry {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(autorize -> autorize
                         .requestMatchers(HttpMethod.POST, "/drink/new").hasAnyRole("ADMIN", "MASTER")
-                        .requestMatchers(HttpMethod.GET, "/drink/getDrink").hasAnyRole("USER", "ADMI", "MASTER")
+                        .requestMatchers(HttpMethod.GET, "/drink/getDrink").permitAll()
                         .requestMatchers(HttpMethod.GET, "/drink").permitAll()
                         .requestMatchers(HttpMethod.GET, "/drink/price").permitAll()
                         .requestMatchers(WHITE_LIST_URL).permitAll()
@@ -54,7 +54,7 @@ public class DrinkSecutiry {
     private UrlBasedCorsConfigurationSource corsConfigurationSource() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:3000")); // Permite o frontend
+        config.setAllowedOrigins(List.of("http://localhost:3000", "http://localhost:5051")); // Permite o frontend
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);

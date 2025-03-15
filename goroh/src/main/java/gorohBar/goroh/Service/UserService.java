@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
 
@@ -30,5 +32,14 @@ public class UserService {
 
         SingUpUser sing = userRepository.save(singUpUser);
         return new SingUpShowDTO(sing);
+    }
+
+    public SingUpShowDTO showUser(String email) {
+        Optional<SingUpUser> user = userRepository.getUserByEmail(email);
+        if (user.isPresent()) {
+            return new SingUpShowDTO(user.get());
+        }else{
+            throw new RuntimeException("Usuário nao encontrado!");
+        }
     }
 }

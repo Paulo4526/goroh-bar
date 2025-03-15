@@ -1,8 +1,9 @@
+"use client"
+
 import "@radix-ui/themes/styles.css";
 import "./globals.css";
 import { Theme } from "@radix-ui/themes";
 import Nav from "@/components/nav";
-import { GetUseContext } from "@/hooks/useContext";
 import { UserContextProvider } from "@/context/UserContext";
 
 
@@ -16,7 +17,7 @@ export default function RootLayout({
       <body>
         <Theme appearance="dark">
           <UserContextProvider>
-            <Nav/>
+            <Nav />
             {children}
           </UserContextProvider>
         </Theme>
@@ -24,3 +25,7 @@ export default function RootLayout({
     </html>
   );
 }
+
+
+
+

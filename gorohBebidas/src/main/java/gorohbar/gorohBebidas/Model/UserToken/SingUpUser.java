@@ -24,7 +24,7 @@ public class SingUpUser implements UserDetails {
     @GeneratedValue(generator = "SQ_USER", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "SQ_USER", sequenceName = "SQ_USER", allocationSize = 1)
     private Long userID;
-    private String username;
+    private String name;
     private String password;
     private String email;
 

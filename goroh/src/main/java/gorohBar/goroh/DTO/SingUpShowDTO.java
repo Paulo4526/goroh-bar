@@ -6,13 +6,12 @@ import gorohBar.goroh.Model.UserRole;
 public record SingUpShowDTO(
 
         Long userId,
-        String username,
-        String password,
+        String name,
         String email,
         UserRole role
 
 ) {
     public SingUpShowDTO (SingUpUser singUpUser){
-        this(singUpUser.getUserID(), singUpUser.getUsername(), singUpUser.getPassword(), singUpUser.getEmail(), singUpUser.getRole());
+        this(singUpUser.getUserID(), singUpUser.getName(), singUpUser.getEmail(), singUpUser.getRole());
     }
 }

@@ -40,8 +40,9 @@ public class UserSecurity {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(autorize -> autorize
-                        .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/user/register").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/user").hasAnyRole("USER", "ADMIN", "MASTER")
                         .requestMatchers(WHITE_LIST_URL).permitAll()
                         .anyRequest()
                         .authenticated()
