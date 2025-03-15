@@ -27,7 +27,7 @@ export const UserContextProvider:React.FC<GetNode> = ({ children }) => {
         const email = formData.get('email')
         const password = formData.get('password')
 
-        const res = await fetch('http://localhost:8080/auth/login', {
+        const res = await fetch('/goroh/auth/login', {
             method: 'POST',
             headers: {"Content-Type" : "application/json"},
             body: JSON.stringify({email, password})
@@ -56,7 +56,7 @@ export const UserContextProvider:React.FC<GetNode> = ({ children }) => {
         const email = formData.get('email');
         const password = formData.get('password')
 
-        const res = await fetch('http://localhost:8080/auth/register', {
+        const res = await fetch('/goroh/auth/register', {
             method: 'POST',
             headers: {"Content-Type" : "application/json"},
             body: JSON.stringify({username, email, password})
