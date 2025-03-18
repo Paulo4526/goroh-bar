@@ -20,16 +20,46 @@ export const useHandle = () => {
     }
   };
 
+  const firstAndLastName  = (user: UserInfo | null, setFirstAndLastName: (name: string) => void) => {
+    if(user && user.name){
+      const nomeCompleto = user.name;
+
+      const getNameAndLAst = (nome: string) => {
+
+
+        const partes = nome.trim().split(" ");
+        if (partes.length === 0) {
+
+            return "";  // Retorna uma string vazia se o nome completo for vazio
+
+        }else{
+
+          return partes[0].toUpperCase() + " " + partes[partes.length -1].toUpperCase()
+
+        }
+
+      }
+      setFirstAndLastName(getNameAndLAst(nomeCompleto))
+    }
+  }
+
   const inicialName = (user: UserInfo | null, setInicial: (inicial: string) => void) => {
     if (user && user.name) {
-      const nomeCompleto = user.name;
-      const partes = nomeCompleto.trim().split(" ");
 
+      const nomeCompleto = user.name;
+      
       const obterIniciais = (nome: string) => {
+
+        const partes = nome.trim().split(" ");
+
         if (partes.length > 1) {
+
           return partes[0][0].toUpperCase() + partes[1][0].toUpperCase();
+
         } else {
+
           return partes[0][0].toUpperCase();
+
         }
       };
 
@@ -108,13 +138,11 @@ export const useHandle = () => {
     });
 
     if (res.ok) {
-      const data = await res.json();
-      setUser(data);
       redirect('/login')
     } else {
       console.error("Falha ao cadastrar usuário");
     }
   };
 
-  return { onSubmitLogin, onSubmitSingUp, loginState, inicialName, fetchUser };
+  return { onSubmitLogin, onSubmitSingUp, loginState, inicialName, fetchUser, firstAndLastName };
 };

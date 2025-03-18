@@ -8,8 +8,9 @@ import ProfileMenu from "../profileMenu";
 
 const Nav:React.FC = () => {
     const { user, login} = GetUseContext()
-    const {inicialName} = useHandle()
+    const {inicialName, firstAndLastName} = useHandle()
     const [inicial, setInicial] = useState<string | null>(null)
+    const [getFirstAndLast, setFirstAndLastName] = useState<string | null>(null)
     const [load, setLoad] = useState<boolean>(false)
     
     useEffect(() => {
@@ -17,6 +18,7 @@ const Nav:React.FC = () => {
         setTimeout(() => {
             if (user) {
                 inicialName(user, setInicial); // Passando o usuário e a função setInicial
+                firstAndLastName(user, setFirstAndLastName)
                 setLoad(true)
             }
         }, 4000)
@@ -36,7 +38,7 @@ const Nav:React.FC = () => {
                 {user !== null ? (
                     <>
                         {load ? (
-                            <ProfileMenu inicial={inicial}/>
+                            <ProfileMenu inicial={inicial} name={getFirstAndLast}/>
                         ) : (<Skeleton>Loading</Skeleton>)}
                     </>
                 ) : null}
