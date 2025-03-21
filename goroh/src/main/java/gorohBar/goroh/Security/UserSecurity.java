@@ -42,7 +42,11 @@ public class UserSecurity {
                 .authorizeHttpRequests(autorize -> autorize
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/user/register").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/user").hasAnyRole("USER", "ADMIN", "MASTER")
+                        .requestMatchers(HttpMethod.GET, "/user/byEmail").hasAnyRole("USER", "ADMIN", "MASTER")
+                        .requestMatchers(HttpMethod.GET, "/user//byId").hasAnyRole("ADMIN", "MASTER")
+                        .requestMatchers(HttpMethod.GET, "/user/userList").hasAnyRole("ADMIN", "MASTER")
+                        .requestMatchers(HttpMethod.PUT, "/user/update").hasAnyRole( "USER","ADMIN", "MASTER")
+                        .requestMatchers(HttpMethod.DELETE, "/user/delete").hasAnyRole( "MASTER")
                         .requestMatchers(WHITE_LIST_URL).permitAll()
                         .anyRequest()
                         .authenticated()

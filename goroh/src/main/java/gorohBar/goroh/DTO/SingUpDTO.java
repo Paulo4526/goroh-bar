@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 public record SingUpDTO(
+        Long id,
+
         @NotBlank(message = "The name space could not be blank, please put in a valid name!")
         @Size(message = "The name space must have more than 10 characters or less than 100 characters", max = 100, min = 10)
         String name,

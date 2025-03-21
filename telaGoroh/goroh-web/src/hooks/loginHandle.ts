@@ -1,9 +1,10 @@
 import { UserInfo } from "@/model/userInfo";
 import { redirect } from "next/navigation";
 import { FormEvent } from "react";
-
+import Cookies from "js-cookie";
 export const useHandle = () => {
 
+  // -------------------------------- loginState ---------------------------------------------
   const loginState = (
     login: boolean,
     setLogin: (state: boolean) => void,
@@ -14,12 +15,15 @@ export const useHandle = () => {
     if (login) {
       setLogin(false);
       setToken("");
-      setUserName(""); // Pode não ser necessário, já que 'userName' não é um estado em GetUseContext
+      setUserName("");
       setUser(null);
+      Cookies.remove("email");
+      Cookies.remove("token");
       redirect('/login')
     }
   };
 
+  // -------------------------------- firstAndLastName ---------------------------------------------
   const firstAndLastName  = (user: UserInfo | null, setFirstAndLastName: (name: string) => void) => {
     if(user && user.name){
       const nomeCompleto = user.name;
@@ -28,9 +32,9 @@ export const useHandle = () => {
 
 
         const partes = nome.trim().split(" ");
-        if (partes.length === 0) {
+        if (partes.length >= 0) {
 
-            return "";  // Retorna uma string vazia se o nome completo for vazio
+            return "";
 
         }else{
 
@@ -43,6 +47,8 @@ export const useHandle = () => {
     }
   }
 
+
+  // -------------------------------- IinicialName ---------------------------------------------
   const inicialName = (user: UserInfo | null, setInicial: (inicial: string) => void) => {
     if (user && user.name) {
 
@@ -54,7 +60,7 @@ export const useHandle = () => {
 
         if (partes.length > 1) {
 
-          return partes[0][0].toUpperCase() + partes[1][0].toUpperCase();
+          return partes[0][0].toUpperCase() + partes[partes.length - 1][0].toUpperCase();
 
         } else {
 
@@ -67,22 +73,64 @@ export const useHandle = () => {
     }
   };
 
+// -------------------------------- GetUser ---------------------------------------------
+  const fetchUser = async (
 
-  const fetchUser = async (token: string, getLoginUser: string, setUser: (user: UserInfo | null) => void, setLogin: (login: boolean) => void) => {
-    const response = await fetch(`/goroh/user?email=${getLoginUser}`, {
+      token: string, 
+      getLoginUser: string, 
+      setUser: (user: UserInfo | null) => void, 
+      setLogin: (login: boolean) => void
+
+    ) => {
+    const res = await fetch(`/goroh/user/byEmail?email=${getLoginUser}`, {
         headers: {"Content-Type" : "application/json", 'Authorization': `Bearer ${token}`}
     })
-    const data = await response.json()
-    console.log(data);
-    setUser(data);
-    setLogin(true);
+    if(res.status === 200){
+      const data = await res.json()
+      console.log(data);
+      setUser(data);
+      setLogin(true);
+    }else if(res.status === 403){
+      console.log(`Ação não permitida, verifique se suas credenciais estão corretas para acessar o serviço!`)
+    }else if (res.status === 404){
+      console.log(`Serviço indisponível no momento, por favor tente mais tarde!`)
+    }else if (res.status === 500){
+      console.log(`Ops! Surgiu um problema! Estamos trabalhando na solução, tente novamente mais tarde!`)
+    }
+
+}
+
+// -------------------------------- GetAllUsers ---------------------------------------------
+const getUsers = async (
+
+    token: string, 
+    setAllUser: (user: UserInfo[] | null) => void
+  
+  ) => {
+  const res = await fetch(`/goroh/user/userList`, {
+      headers: {"Content-Type" : "application/json", 'Authorization': `Bearer ${token}`}
+  })
+  if(res.status === 200){
+    const data = await res.json()
+    setAllUser(data.content);
+  }else if(res.status === 403){
+    console.log(`Ação não permitida, verifique se suas credenciais estão corretas para acessar o serviço!`)
+  }else if (res.status === 404){
+    console.log(`Serviço indisponível no momento, por favor tente mais tarde!`)
+  }else if (res.status === 500){
+    console.log(`Ops! Surgiu um problema! Estamos trabalhando na solução, tente novamente mais tarde!`)
+  }
 }
 
 
+  // -------------------------------- Login ---------------------------------------------
   const onSubmitLogin = async (
+
     ev: FormEvent<HTMLFormElement>,
     setToken: (token: string) => void,
-    setLoginUser: (username: string) => void
+    setLoginUser: (username: string) => void,
+    setError: (error: string) => void
+
   ) => {
     ev.preventDefault();
 
@@ -99,28 +147,58 @@ export const useHandle = () => {
         body: JSON.stringify({ email, password }),
       });
 
-      if (res.ok) {
+      if (res.status === 200) {
+
         const data = await res.json();
         setLoginUser(email);
+        setToken(data.token);
 
-        if (data.token) {
-          setToken(data.token);
-          // Navega para a página desejada após o login bem-sucedido
-          redirect('/index')
-        } else {
-          console.error("Nenhum token retornado na resposta");
-        }
-      } else {
-        console.error("Falha no login");
+        Cookies.set("email", email, {
+          expires: 7, // Expira em 7 dias
+          path: "/",  // Acessível em todo o site
+          secure: process.env.NODE_ENV === "production", // Só em HTTPS
+          sameSite: "Strict",  // Evita o envio entre sites
+        });
+        
+        Cookies.set("token", data.token, {
+          expires: 7, // Expira em 7 dias
+          path: "/",  // Acessível em todo o site
+          secure: process.env.NODE_ENV === "production", // Só em HTTPS
+          sameSite: "Strict",  // Evita o envio entre sites
+        });
+
+        redirect('/index')
+
+      } else if(res.status === 500) {
+
+        setError("Servidor indisponível no momento, tente mais tarde!")
+        console.error(`Erro: ${res.status}`);
+
+      }else if(res.status === 403){
+
+        setError("Email ou senhas inválidos, tente novamente!")
+        console.error(`Error: ${res.status}`)
+
+      }else if(res.status === 404){
+
+        setError("Erro ao realizar login, por favor tente mais tarde!")
+        console.error(`Error: ${res.status}`)
+
+      }else if(res.status === 500){
+        console.log(`Ops! Surgiu um problema! Estamos trabalhando na solução, tente novamente mais tarde!`)
       }
     } else {
-      console.error("Email ou senha inválidos");
+      setError("Erro: Por favor tenha certeza que o formato de e-mail esteja correto!")
+      console.error("Erro de validaçao!");
     }
   };
 
+
+  // -------------------------------- SingUp ---------------------------------------------
   const onSubmitSingUp = async (
-    ev: FormEvent<HTMLFormElement>,
-    setUser: (data: any) => void
+
+    ev: FormEvent<HTMLFormElement>
+
   ) => {
     ev.preventDefault();
 
@@ -137,12 +215,47 @@ export const useHandle = () => {
       body: JSON.stringify({ name, email, password }),
     });
 
-    if (res.ok) {
+    if (res.status === 201) {
       redirect('/login')
-    } else {
-      console.error("Falha ao cadastrar usuário");
+    } else if(res.status === 403){
+      console.error("Falha ao cadastrar usuário, certifique-se que todos os campos estão preenchidos corretamente!");
+    } else if(res.status === 404){
+      console.log(`Serviço indisponível no momento, por favor tente mais tarde!`)
+    }else if(res.status === 500){
+      console.log(`Ops! Surgiu um problema! Estamos trabalhando na solução, tente novamente mais tarde!`)
     }
   };
 
-  return { onSubmitLogin, onSubmitSingUp, loginState, inicialName, fetchUser, firstAndLastName };
+  // -------------------------------- Delete ---------------------------------------------
+  const deleteUser = async (
+    
+      token: string, 
+      id:number, 
+      setError: (error: string) => void, 
+      setConfirm: (confirm: boolean) => void
+    
+    ) => {
+    const res = await fetch(`/goroh/user/delete?id=${id}`, {
+    method: "DELETE",
+    headers: {"Content-Type" : "application/json", 'Authorization': `Bearer ${token}`},
+  })
+  if(res.status === 204){
+    setConfirm(true)
+    redirect(`/show-users`)
+  }else if(res.status === 403){
+    setError("Ação não autorizada, solicite apoio a um usuário MASTER!")
+  }else if(res.status === 404){
+    setError("Usuário não encontrado! Verifique o Banco de Dados.")
+  }else if (res.status === 500){
+    console.log(`Ops! Surgiu um problema! Estamos trabalhando na solução, tente novamente mais tarde!`)
+  }else{
+    setError("Erro na requição tente novamente mais tarde")
+    console.log(`Erro: ${res.status}`)
+  }
+}
+
+
+
+
+  return { onSubmitLogin, onSubmitSingUp, loginState, inicialName, fetchUser, firstAndLastName, getUsers, deleteUser };
 };

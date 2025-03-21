@@ -2,7 +2,8 @@ import { useHandle } from "@/hooks/loginHandle";
 import { GetUseContext } from "@/hooks/useContext";
 import { ExitIcon, GearIcon, PersonIcon, PlusIcon } from "@radix-ui/react-icons";
 import { Button, DropdownMenu, Flex, Heading, Text } from "@radix-ui/themes";
-import Link from "next/link";
+import { redirect } from "next/navigation";
+import NewItem from "../menuITem";
 
 interface GetProfileItens{
     inicial:string | null,
@@ -10,7 +11,7 @@ interface GetProfileItens{
 }
 
 const ProfileMenu:React.FC<GetProfileItens> = ({inicial, name}) => {
-    const { user, login, setLogin, setLoginUser, setUser, setToken} = GetUseContext()
+    const { user, login, setLogin, setLoginUser, setUser, setToken, token} = GetUseContext()
     const { loginState } = useHandle()
     return(
         <DropdownMenu.Root>
@@ -22,46 +23,27 @@ const ProfileMenu:React.FC<GetProfileItens> = ({inicial, name}) => {
             </DropdownMenu.Trigger>
             <DropdownMenu.Content>
                 <Flex direction={"column"} gap={"4"}>
-                    <Flex justify={"between"} align={"center"}width={'100%'} px={"2"}>
-                        <Text>{name}</Text>
-                        <Text>#{user?.userId}</Text>
-                    </Flex>
-                    <Flex justify={"center"} width={'100%'} px={"2"}>
-                        <Text size={"2"}>{user?.email}</Text>
-                    </Flex>
-                    <DropdownMenu.Item>
-                        <Flex justify={"between"} align={"center"} width={'100%'} gap={"5"}>
-                            <Link href={`/profile/${user?.userId}`}>Profile</Link>
-                            <PersonIcon />
-                        </Flex>
-                    </DropdownMenu.Item>
-                    <DropdownMenu.Item >
-                    <Flex justify={"between"} align={"center"} width={'100%'} gap={"5"}>
-                        <Button variant="ghost" style={{color: "white"}}>Configuration</Button>
-                        <GearIcon/>
-                    </Flex>
-                    </DropdownMenu.Item>
-                    
+
+                    <NewItem justify="between" align="center" width="100%" px="2" name={name} id={`${user?.userId}`}/>
+                    <NewItem justify="center" width="100%" px="2" email={`${user?.email}`} size="2"/>
+                    <NewItem active="active" onclick={() => redirect(`/profile/${user?.userId}`)}  justify="between" align="center" width={"100%"} gap={"5"} icon={"person"} content={"Profile"}/>
+                    <NewItem active="active" justify="between" align="center" width={"100%"} gap={"5"} icon={"gear"} content={"Configuration"}/>
+                    <NewItem active="active" justify="between" align="center" width={"100%"} gap={"5"} icon={"bag"} content={"Meus Pedidos"}/>
+                    <NewItem active="active" justify="between" align="center" width={"100%"} gap={"5"} icon={"star"} content={"Lista de Desejos"}/>
+
                     {user?.role === "ADMIN" || user?.role === "MASTER" ? (
                         <>
-                            <Flex justify={"between"} align={"center"}>
-                                <DropdownMenu.Item><Link href={`/profile`}>Drinks</Link></DropdownMenu.Item><PlusIcon />
-                            </Flex>
-                            <Flex justify={"between"} align={"center"}>
-                                <DropdownMenu.Item >Geren. Users  </DropdownMenu.Item><PersonIcon/>
-                            </Flex>
+                            <NewItem onclick={() => redirect('/show-users')} active="active" justify="between" align="center" width={"100%"} gap={"5"} icon={"person"} content={"Usuarios"}/>
+                            <NewItem active="active" justify="between" align="center" width={"100%"} gap={"5"} icon={"plus"} content={"Drinks"}/>
+                            <NewItem active="active" justify="between" align="center" width={"100%"} gap={"5"} icon={"person"} content={"Geren. Users"}/>
                         </>
                     ) : ("")}
-                    <DropdownMenu.Item onClick={() => loginState(login, setLogin, setToken, setLoginUser, setUser)} color="red">
-                        <Flex justify={"between"} align={"center"} width={'100%'} gap={"5"}>
-                            Sair
-                            <ExitIcon />
-                        </Flex>
-                    </DropdownMenu.Item>
+
+
+                    <NewItem onclick={() => loginState(login, setLogin, setToken, setLoginUser, setUser)} active="active" justify="between" align="center" width={"100%"} gap={"5"} icon={"exit"} content={"Sair"} color="red"/>
                 </Flex>
             </DropdownMenu.Content>
         </DropdownMenu.Root>
-
     )
 }
 

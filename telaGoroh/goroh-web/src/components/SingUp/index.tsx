@@ -7,6 +7,8 @@ import Link from "next/link"
 import { FormEvent, useEffect, useState } from "react"
 import { GetUseContext } from "@/hooks/useContext"
 import { useHandle } from "@/hooks/loginHandle"
+import Cookies from "js-cookie";
+import { redirect } from "next/navigation"
 
 export const Singup:React.FC = () => {
     const [name, setName] = useState("")
@@ -15,17 +17,22 @@ export const Singup:React.FC = () => {
     const { setUser } = GetUseContext()
     const { onSubmitSingUp } = useHandle()
     const [load, setLoad] = useState<boolean>(false)
+    const cookEmail = Cookies.get("email");
+    const cookToken = Cookies.get("token");
     
         useEffect(() => {
             setLoad(false)
             setTimeout(() => {
                 setLoad(true)
-            }, 4000)
+            }, 2000)
         }, [])
     return(
         <Section>
-            {load ? (
-                <Form gap="7" onSubmit={(ev:FormEvent<HTMLFormElement>) => onSubmitSingUp(ev, setUser)}>
+            <></>
+            {cookEmail && cookToken ? (redirect(`/index`)) : (
+                <>
+                    {load ? (
+                <Form gap="7" onSubmit={(ev:FormEvent<HTMLFormElement>) => onSubmitSingUp(ev)}>
                     <Heading as="h1">Sing Up</Heading>
                     <Input 
                         name="name" 
@@ -80,6 +87,9 @@ export const Singup:React.FC = () => {
                     </Flex>
                 </Flex>
             )}
+                </>
+        )}
+            
         </Section>
     )
 }
