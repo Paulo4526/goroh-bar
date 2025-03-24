@@ -1,5 +1,6 @@
 package gorohBar.goroh.Contoller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import gorohBar.goroh.DTO.SingUpDTO;
 import gorohBar.goroh.DTO.SingUpShowDTO;
 import gorohBar.goroh.Model.SingUpUser;
@@ -46,6 +47,12 @@ public class UserController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     public SingUpShowDTO updateUser(@RequestBody SingUpUser user, @RequestParam Long id) {
         return userService.updateUser(user, id);
+    }
+
+    @PatchMapping(value = "/patch", params = "id")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public SingUpShowDTO patchUser(@RequestBody String json, @RequestParam Long id) throws JsonProcessingException {
+        return userService.patchUser(json, id);
     }
 
     @DeleteMapping(value = "/delete", params = "id")

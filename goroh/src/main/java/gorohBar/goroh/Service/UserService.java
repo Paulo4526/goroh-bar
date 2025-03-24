@@ -1,5 +1,8 @@
 package gorohBar.goroh.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import gorohBar.goroh.DTO.SingUpDTO;
 import gorohBar.goroh.DTO.SingUpShowDTO;
 import gorohBar.goroh.Model.SingUpUser;
@@ -7,6 +10,7 @@ import gorohBar.goroh.Model.UserRole;
 import gorohBar.goroh.Repository.UserRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.BeanDefinitionDsl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -97,6 +101,67 @@ public class UserService {
         }else{
             throw  new RuntimeException("Usuario nao encontrado!");
         }
+    }
+
+
+    public SingUpShowDTO patchUser(String json, Long id) throws JsonProcessingException {
+
+        String field = null;
+
+        UserRole role = null;
+
+        String value = null;
+
+        String criptografy = null;
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode node = objectMapper.readTree(json);
+
+        if(node.has("name")){
+            field = "name";
+            value = node.get("name").asText();
+        }else if(node.has("email")){
+            field = "email";
+            value = node.get("email").asText();
+        }else if(node.has("role")){
+            field = "role";
+            role = UserRole.valueOf(node.get("role").asText());
+        }else if(node.has("password")){
+            field = "password";
+            value = node.get("password").asText();
+        }
+
+        Optional<SingUpUser> optionalSingUpUser = userRepository.getUserById(id);
+        if (optionalSingUpUser.isPresent()) {
+
+            SingUpUser userToUpdate = optionalSingUpUser.get();
+
+            if(field.equals("name")){
+
+                userToUpdate.setName(value);
+            }else if(field.equals("email")){
+
+                Optional<SingUpUser> existingUserWithEmail = userRepository.getUserByEmail(value);
+                if (existingUserWithEmail.isPresent()) {
+                    throw new RuntimeException("Email já está em uso.");
+                }
+                userToUpdate.setEmail(value);
+
+            }else if(field.equals("role")){
+
+                userToUpdate.setRole(role);
+
+            }else if(field.equals("password")){
+                criptografy = new BCryptPasswordEncoder().encode(value);
+                userToUpdate.setPassword(criptografy);
+
+            }
+            userRepository.save(userToUpdate);
+            return new SingUpShowDTO(userToUpdate);
+        }else{
+            throw  new RuntimeException("Usuario nao encontrado!");
+        }
+
     }
 
     public Page<SingUpShowDTO> showAll(Pageable pageable){

@@ -1,62 +1,54 @@
 "use client"
-import { useHandle } from "@/hooks/loginHandle";
-import { GetUseContext } from "@/hooks/useContext";
+
 import { Button, Flex, Skeleton, Text } from "@radix-ui/themes"
 import Link from "next/link"
-import { useEffect, useState } from "react";
 import ProfileMenu from "../profileMenu";
+import { useEffect, useState } from "react";
+import { UserInfo } from "@/model/userInfo";
+import { userSimple } from "@/hooks/userManager/userSimple/userSimple";
 
-const Nav:React.FC = () => {
-    const { user, login} = GetUseContext()
-    const {inicialName, firstAndLastName} = useHandle()
+interface GetInfo{
+    user: UserInfo | null;
+    getLogin: boolean;
+}
+
+const Nav:React.FC<GetInfo> = ({getLogin, user}) => {
+    const { inicialName, firstAndLastName } = userSimple()
     const [inicial, setInicial] = useState<string | null>(null)
-    const [getFirstAndLast, setFirstAndLastName] = useState<string | null>(null)
+    const [getFirstAndLast, setFirstAndLast]= useState<string | null>(null)
     const [load, setLoad] = useState<boolean>(false)
-    
+
     useEffect(() => {
         setLoad(false)
         setTimeout(() => {
-            if (user) {
-                inicialName(user, setInicial); // Passando o usuário e a função setInicial
-                firstAndLastName(user, setFirstAndLastName)
+            if(getLogin) {
+                inicialName(user, setInicial)
+                firstAndLastName(user, setFirstAndLast)
                 setLoad(true)
+            }else{
+                setLoad(false)
             }
-        }, 4000)
-    }, [user]);
-      
+        }, 1000)
+    },[getLogin])
 
-      
     return(
-        <Flex justify={"between"} px={"4"} mt={"3"} 
-        style={{
-            position:"sticky", top: "20px"
-        }}>
-            <Link href={"/index"}>
-                <Text>Imagem aqui</Text>
-            </Link>
+        <>
             <Flex gap={"5"}>
-                {user !== null ? (
+                { getLogin ? (
                     <>
                         {load ? (
                             <ProfileMenu inicial={inicial} name={getFirstAndLast}/>
-                        ) : (<Skeleton>Loading</Skeleton>)}
+                        ) : (<Skeleton style={{height:"20px", width:"20px"}}>Loading</Skeleton>)}
                     </>
-                ) : null}
-                <Link href={"/login"}>
-                    {
-                        login === false ? 
-                        (<Button variant="outline">Login</Button>) : 
-                        ("")
-                    }
-                </Link>
-                {login === false? (
-                    <Link href={"/SingUp"}>
-                    <Button variant="outline" color="ruby">Sing Up</Button>
-                </Link>
-                ) : null}
+                ) : (
+                    <Flex gap={"5"} align={"center"}>
+                        <Link href={"/login"}><Button>Login</Button></Link>
+                        <Link href={"/SingUp"}><Button>SingUp</Button></Link>
+                    </Flex>
+                )}
                 
             </Flex>
-        </Flex>
+        </>
     )
 }
 

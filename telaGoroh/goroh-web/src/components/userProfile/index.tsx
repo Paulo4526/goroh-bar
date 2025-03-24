@@ -1,3 +1,5 @@
+"use client"
+
 import { UserInfo } from "@/model/userInfo";
 import { ChatBubbleIcon } from "@radix-ui/react-icons";
 import { Button, Flex, Heading } from "@radix-ui/themes";

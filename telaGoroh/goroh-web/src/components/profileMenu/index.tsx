@@ -1,9 +1,9 @@
-import { useHandle } from "@/hooks/loginHandle";
+
 import { GetUseContext } from "@/hooks/useContext";
-import { ExitIcon, GearIcon, PersonIcon, PlusIcon } from "@radix-ui/react-icons";
 import { Button, DropdownMenu, Flex, Heading, Text } from "@radix-ui/themes";
 import { redirect } from "next/navigation";
 import NewItem from "../menuITem";
+import { userSimple } from "@/hooks/userManager/userSimple/userSimple";
 
 interface GetProfileItens{
     inicial:string | null,
@@ -12,13 +12,12 @@ interface GetProfileItens{
 
 const ProfileMenu:React.FC<GetProfileItens> = ({inicial, name}) => {
     const { user, login, setLogin, setLoginUser, setUser, setToken, token} = GetUseContext()
-    const { loginState } = useHandle()
+    const { loginState } = userSimple()
     return(
         <DropdownMenu.Root>
             <DropdownMenu.Trigger>
-                <Button variant="soft" color="red">
+                <Button variant="solid" color="red">
                     {inicial}
-                    
                 </Button>
             </DropdownMenu.Trigger>
             <DropdownMenu.Content>
@@ -26,7 +25,7 @@ const ProfileMenu:React.FC<GetProfileItens> = ({inicial, name}) => {
 
                     <NewItem justify="between" align="center" width="100%" px="2" name={name} id={`${user?.userId}`}/>
                     <NewItem justify="center" width="100%" px="2" email={`${user?.email}`} size="2"/>
-                    <NewItem active="active" onclick={() => redirect(`/profile/${user?.userId}`)}  justify="between" align="center" width={"100%"} gap={"5"} icon={"person"} content={"Profile"}/>
+                    <NewItem active="active" onclick={() => redirect(`/profile`)}  justify="between" align="center" width={"100%"} gap={"5"} icon={"person"} content={"Profile"}/>
                     <NewItem active="active" justify="between" align="center" width={"100%"} gap={"5"} icon={"gear"} content={"Configuration"}/>
                     <NewItem active="active" justify="between" align="center" width={"100%"} gap={"5"} icon={"bag"} content={"Meus Pedidos"}/>
                     <NewItem active="active" justify="between" align="center" width={"100%"} gap={"5"} icon={"star"} content={"Lista de Desejos"}/>
