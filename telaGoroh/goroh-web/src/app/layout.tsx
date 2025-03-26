@@ -64,9 +64,7 @@ const GetNav = () => {
               </Flex>
         </Flex>
         {load ? ("") : (
-          <Flex width={"100%"} justify={"center"} position={"absolute"} top={"50%"}>
-            <Spinner/>
-        </Flex>
+          null
         )}
     </>
   )

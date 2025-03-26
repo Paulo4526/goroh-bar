@@ -20,15 +20,11 @@ const Login = () => {
     const [getError, setError] = useState<string>("")
     
     useEffect(() => {
-        setLoad(false)
-        setTimeout(() => {
-            if(login){
-                redirect('/index')
-            }else{
+        if(!load){
+            setTimeout(() => {
                 setLoad(true)
-            }
-        }, 3000)
-        
+            }, 2000)
+        } 
         if(getError !== null && getError !== ""){
             setTimeout(() => {
                 setError("")
@@ -70,20 +66,20 @@ const Login = () => {
 
             ) : (
                 <Flex direction={"column"} gap={"9"} justify={"center"} align={"center"} style={{marginTop:"90px"}}>
-                    <Skeleton width={"200px"} height={"20px"}>Loading</Skeleton>
+                    <Skeleton width={"200px"} height={"30px"}>Loading</Skeleton>
                     <Flex direction={"column"} gap={"2"}>
                         <Skeleton width={"40px"} height={"20px"}>Loading</Skeleton>
-                        <Skeleton width={"400px"} height={"20px"}>Loading</Skeleton>
+                        <Skeleton width={"400px"} height={"30px"}>Loading</Skeleton>
 
                     </Flex>
                     <Flex direction={"column"} gap={"2"}>
                         <Skeleton width={"40px"} height={"20px"}>Loading</Skeleton>
-                        <Skeleton width={"400px"} height={"20px"}>Loading</Skeleton>
+                        <Skeleton width={"400px"} height={"30px"}>Loading</Skeleton>
 
                     </Flex>
                     <Flex justify={"between"} gap={"4"}>
-                        <Skeleton width={"50px"} height={"20px"}>Loading</Skeleton>
-                        <Skeleton width={"50px"} height={"20px"}>Loading</Skeleton>
+                        <Skeleton width={"50px"} height={"30px"}>Loading</Skeleton>
+                        <Skeleton width={"50px"} height={"30px"}>Loading</Skeleton>
                     </Flex>
                 </Flex>
             )}
