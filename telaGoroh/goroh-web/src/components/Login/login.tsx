@@ -43,6 +43,7 @@ const Login = () => {
                             <Text className={Style.error}>{getError}</Text>
                         ) : ""}
                         <Input 
+                            className={Style.shadow} 
                             name="email" 
                             type="email" 
                             label="Email" 
@@ -50,7 +51,8 @@ const Login = () => {
                             value={email} 
                             onChange={(ev:React.ChangeEvent<HTMLInputElement>) => setEmail(ev.target.value)}
                         />
-                        <Input 
+                        <Input
+                            className={Style.shadow} 
                             name="password" 
                             type="password" 
                             label="Password" 

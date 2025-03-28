@@ -2,7 +2,7 @@
 
 import { Singup } from "@/components/SingUp"
 import { GetUseContext } from "@/hooks/useContext";
-import { Flex, Section, Spinner } from "@radix-ui/themes";
+import { Flex, Section } from "@radix-ui/themes";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -29,7 +29,7 @@ const SingupPage:React.FC = () => {
                 <Singup/>
             ) : (
                 <Flex width={"100%"} justify={"center"} position={"absolute"} top={"50%"}>
-                    <Spinner/>
+                    <img src="/images/spinner.svg" alt="spinner" style={{width:"50px"}}/>
                 </Flex>
             )}
         </Section>

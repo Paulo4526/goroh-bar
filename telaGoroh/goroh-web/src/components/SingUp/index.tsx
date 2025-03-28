@@ -1,6 +1,6 @@
 "use client"
 
-import { Button, Flex, Heading, Section, Skeleton} from "@radix-ui/themes"
+import { Button, Flex, Heading, Skeleton} from "@radix-ui/themes"
 import { Form } from "../form"
 import { Input } from "../Input"
 import Link from "next/link"
@@ -51,7 +51,7 @@ export const Singup:React.FC = () => {
                                 onChange={(ev:React.ChangeEvent<HTMLInputElement>) => setPassword(ev.target.value)}
                             />
                             <Flex gap={"4"} justify={"center"}>
-                                <Button variant="outline">Sing Up</Button>
+                                <Button variant="soft">Sing Up</Button>
                                 <Link href={"/"}><Button variant="soft" color="orange">Back</Button></Link>
                             </Flex>
                         </Form>

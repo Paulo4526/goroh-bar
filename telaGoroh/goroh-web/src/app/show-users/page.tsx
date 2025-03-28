@@ -35,7 +35,7 @@ const ShowUsers:React.FC = () => {
             ) : 
             (
                 <Flex width={"100%"} justify={"center"} position={"absolute"} top={"50%"}>
-                    <Spinner/>
+                    <img src="/images/spinner.svg" alt="spinner" style={{width:"50px"}}/>
                 </Flex>
             )}
         </Section>

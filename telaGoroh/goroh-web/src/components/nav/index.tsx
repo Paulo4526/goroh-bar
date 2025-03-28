@@ -42,8 +42,8 @@ const Nav:React.FC<GetInfo> = ({getLogin, user}) => {
                     </>
                 ) : (
                     <Flex gap={"5"} align={"center"}>
-                        <Link href={"/login"}><Button>Login</Button></Link>
-                        <Link href={"/SingUp"}><Button>SingUp</Button></Link>
+                        <Link href={"/login"}><Button variant="soft">Login</Button></Link>
+                        <Link href={"/SingUp"}><Button variant="soft" color="purple">SingUp</Button></Link>
                     </Flex>
                 )}
                 

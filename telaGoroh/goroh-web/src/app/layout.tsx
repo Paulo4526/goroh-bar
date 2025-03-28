@@ -1,7 +1,7 @@
 "use client"
 
 import "@radix-ui/themes/styles.css";
-import { Button, Flex, Section, Skeleton, Spinner, Theme } from "@radix-ui/themes";
+import { Flex, Theme } from "@radix-ui/themes";
 import Nav from "@/components/nav";
 import { UserContextProvider } from "@/context/UserContext";
 import { GetUseContext } from "@/hooks/useContext";
@@ -20,7 +20,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Theme appearance="dark">
+        <Theme appearance="dark"
+        style={{ 
+          backgroundImage: "url('/images/goroh_back.jpeg')",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          backgroundAttachment: "fixed",
+          }}
+        >
           <UserContextProvider>
             <GetNav />
             {children}
@@ -51,10 +58,9 @@ const GetNav = () => {
       <Flex justify={"between"} align={"center"} px={"3"} py={"2"}
             style={{
                 position:"sticky", top: "10px",
-                backgroundColor: "white",
                 borderRadius:"5px"
             }}>
-              <Link href={"/index"} style={{display:"flex", alignItems:"center"}}><Image src={"/images/gorohlogo.png"} alt="" width={50} height={50} priority/></Link>
+              <Link href={"/index"} style={{display:"flex", alignItems:"center"}}><Image style={{borderRadius:"10px"}} src={"/images/novo_logo.png"} alt="" width={100} height={50} priority/></Link>
               <Flex gap={"5"}>  
                 {load ? (
                     <>
