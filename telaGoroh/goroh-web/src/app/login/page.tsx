@@ -27,13 +27,15 @@ const LoginPage:React.FC = () => {
     }, [login])
     
     return(
-        <Section>
-            {load ? (<Login/>) : (
+        <>
+            {load ? (
+                    <Login />        
+            ) : (
             <Flex width={"100%"} justify={"center"} position={"absolute"} top={"50%"} style={{backgroundColor:"transparent"}}>
                 <img src="/images/spinner.svg" alt="spinner" style={{width:"50px"}}/>
             </Flex>
         )}
-        </Section>
+        </>
     )
 }
 

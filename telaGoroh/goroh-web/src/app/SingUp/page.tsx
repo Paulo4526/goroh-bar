@@ -24,7 +24,7 @@ const SingupPage:React.FC = () => {
         }
     }, [login])
     return(
-        <Section>
+        <>
             {load ? (
                 <Singup/>
             ) : (
@@ -32,7 +32,7 @@ const SingupPage:React.FC = () => {
                     <img src="/images/spinner.svg" alt="spinner" style={{width:"50px"}}/>
                 </Flex>
             )}
-        </Section>
+        </>
     )
 }
 

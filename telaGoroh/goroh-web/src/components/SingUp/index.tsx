@@ -56,7 +56,7 @@ export const Singup:React.FC = () => {
                             </Flex>
                         </Form>
                         ) : (
-                        <Flex direction={"column"} gap={"9"} justify={"center"} align={"center"} style={{marginTop:"90px"}}>
+                        <Flex direction={"column"} gap={"9"} justify={"center"} align={"center"} height={"85vh"}>
                             <Skeleton width={"200px"} height={"20px"}>Loading</Skeleton>
                             <Flex direction={"column"} gap={"2"}>
                                 <Skeleton width={"40px"} height={"20px"}>Loading</Skeleton>
