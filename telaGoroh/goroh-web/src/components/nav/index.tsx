@@ -38,7 +38,7 @@ const Nav:React.FC<GetInfo> = ({getLogin, user}) => {
                     <>
                         {load ? (
                             <ProfileMenu inicial={inicial} name={getFirstAndLast}/>
-                        ) : (<Skeleton style={{height:"20px", width:"20px"}}>Loading</Skeleton>)}
+                        ) : (<Skeleton style={{height:"30px", width:"40px"}}>Loading</Skeleton>)}
                     </>
                 ) : (
                     <Flex gap={"5"} align={"center"}>

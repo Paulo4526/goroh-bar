@@ -1,6 +1,6 @@
 "use client"
 
-import { Button, Flex, Heading, Table } from "@radix-ui/themes";
+import { Button, Flex, Heading, Table, Text } from "@radix-ui/themes";
 import ErrorAlert from "../errorAlert";
 import { GetUseContext } from "@/hooks/useContext";
 import { useEffect, useState } from "react";
@@ -38,37 +38,32 @@ const GetUser:React.FC = () => {
             <Flex direction={"column"} gap={"5"} align={"center"}>
                 {observerError(getError)}
                 <Heading as="h1">User Manager</Heading>
-                <Table.Root size={"3"} layout={"auto"}>
-                    <Table.Header>
-                        <Table.Row>
-                            <Table.ColumnHeaderCell>ID</Table.ColumnHeaderCell>
-                            <Table.ColumnHeaderCell>Name</Table.ColumnHeaderCell>
-                            <Table.ColumnHeaderCell>Email</Table.ColumnHeaderCell>
-                            <Table.ColumnHeaderCell>Role</Table.ColumnHeaderCell>
-                            <Table.ColumnHeaderCell>Action</Table.ColumnHeaderCell>
-                        </Table.Row>
-                    </Table.Header>
-                    <Table.Body>
-                        {allUser?.map((allUser) => (
-                            <Table.Row key={allUser.userId} align={"center"}>
-                                <Table.RowHeaderCell >{allUser.userId}</Table.RowHeaderCell>
-                                <Table.Cell >{allUser.name}</Table.Cell>
-                                <Table.Cell >{allUser.email}</Table.Cell>
-                                <Table.Cell >{allUser.role}</Table.Cell>
-                                <Table.Cell>
-                                    <Flex align={"center"} gap={"3"}>
-                                        <Link href={`show-users/${allUser.userId}`} rel="preload">
-                                            <Button>Edit</Button>
-                                        </Link>
-                                        {user?.role === "MASTER" ? (
-                                            <Button color="red" onClick={() => deleteUser(token, allUser.userId, setError, setConfirm)}>Delete</Button>
-                                        ) : ""}
-                                    </Flex>
-                                </Table.Cell>
-                            </Table.Row>
+
+                    <Flex direction={"column"} gap={"2"} width={"900px"}>
+                        <Flex gap={"5"} justify={"between"} align={"center"} style={{backgroundColor:"#020202d3", padding:"10px"}}>
+                            <Heading as="h6" size={"3"} align={"center"} style={{width:"70px"}}>ID</Heading>
+                            <Heading as="h6" size={"3"} align={"center"} style={{width:"280px"}}>NOME</Heading>
+                            <Heading as="h6" size={"3"} align={"center"} style={{width:"300px"}}>EMAIL</Heading>
+                            <Heading as="h6" size={"3"} align={"center"} style={{width:"100px"}}>ROLE</Heading>
+                            <Heading as="h6" size={"3"} align={"center"} style={{width:"150px"}}>AÇÂO</Heading>
+                        </Flex>
+                        {allUser?.map((users) => (
+                            <Flex  key={users.userId} gap={"5"} justify={"between"} align={"center"} style={{backgroundColor:"#020202d3", padding:"10px", borderRadius:"5px"}}>
+                                <Text align={"center"} style={{width:"70px"}}><span>{users.userId}</span></Text>
+                                <Text align={"center"} style={{width:"280px"}}>{users.name}</Text>
+                                <Text align={"center"} style={{width:"300px"}}>{users.email}</Text>
+                                <Text align={"center"} style={{width:"100px"}}>{users.role}</Text>
+                                <Flex gap={"3"} justify={"center"} style={{width:"150px"}}>
+                                    <Link href={`/show-users/${users.userId}`} rel="preload">
+                                        <Button>Edit</Button>
+                                    </Link>
+                                    {user?.role === "MASTER" ? (
+                                        <Button color="red" onClick={() => deleteUser(token, users.userId, setError, setConfirm)}>Delete</Button>
+                                    ): ("")}
+                                </Flex>
+                            </Flex>
                         ))}
-                    </Table.Body>
-                </Table.Root>
+                    </Flex>
             </Flex>
         </>
     )

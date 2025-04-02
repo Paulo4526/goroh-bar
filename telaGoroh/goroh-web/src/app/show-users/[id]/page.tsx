@@ -25,7 +25,7 @@ const ShowUser = () => {
     })
 
     return(
-        <Section>
+        <>
             {load ? (
                 <UpdateUser id ={Number(id)}>
                 </UpdateUser>
@@ -34,7 +34,7 @@ const ShowUser = () => {
                     <img src="/images/spinner.svg" alt="spinner" style={{width:"50px"}}/>
                 </Flex>
             )}
-        </Section>
+        </>
 
 
     )

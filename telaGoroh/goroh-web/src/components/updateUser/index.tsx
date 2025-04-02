@@ -15,7 +15,7 @@ interface EditUser{
 
 
 const UpdateUser:React.FC<EditUser> = ({id}) => {
-    const { token } = GetUseContext()
+    const { token, user } = GetUseContext()
     const { getUserById } = useGetInfo()
     const { updateUser } =useUpdateAndDelete()
     const [name, setName] = useState<string | undefined>(undefined)
@@ -71,26 +71,27 @@ const UpdateUser:React.FC<EditUser> = ({id}) => {
                             value={password}
                             onChange={(ev:React.ChangeEvent<HTMLInputElement>) => setPassword(ev.target.value)}
                         />
-
-                        <Select.Root>
-                            <Select.Trigger placeholder={role} radius="medium" />
-                            <Select.Content position="popper">
-                                <Select.Group>
-                                    <Select.Label>USERS</Select.Label>
-                                    <Select.Item value="master">MASTER</Select.Item>
-                                    <Select.Item value="admin">ADMIN</Select.Item>
-                                    <Select.Item value="user">USER</Select.Item>
-                                </Select.Group>
-                            </Select.Content>
-                        </Select.Root>
+                        {user?.role === "MASTER" ? (
+                            <Select.Root>
+                                <Select.Trigger placeholder={role} radius="medium" />
+                                <Select.Content position="popper">
+                                    <Select.Group>
+                                        <Select.Label>USERS</Select.Label>
+                                        <Select.Item value="master">MASTER</Select.Item>
+                                        <Select.Item value="admin">ADMIN</Select.Item>
+                                        <Select.Item value="user">USER</Select.Item>
+                                    </Select.Group>
+                                </Select.Content>
+                            </Select.Root>
+                        ) : ("")}
                         <Flex gap={"4"} justify={"center"}>
-                            <Button variant="outline">Sing Up</Button>
+                            <Button variant="outline">Update</Button>
                             <Link href={"/show-users"}><Button variant="soft" color="orange">Back</Button></Link>
                         </Flex>
                 </Form>
             ): (
-                <Flex width={"100%"} justify={"center"} position={"absolute"} top={"50%"}>
-                    <Spinner/>
+                <Flex width={"100%"} justify={"center"} position={"absolute"} top={"50%"} style={{backgroundColor:"transparent"}}>
+                    <img src="/images/spinner.svg" alt="spinner" style={{width:"50px"}}/>
                 </Flex>
             )}
         </>

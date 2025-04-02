@@ -8,6 +8,7 @@ import { GetUseContext } from "@/hooks/useContext";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image"
+import Style from "./style.module.css"
 
 
 export default function RootLayout({
@@ -60,7 +61,7 @@ const GetNav = () => {
                 position:"sticky", top: "10px",
                 borderRadius:"5px"
             }}>
-              <Link href={"/index"} style={{display:"flex", alignItems:"center"}}><Image style={{borderRadius:"10px"}} src={"/images/novo_logo.png"} alt="" width={100} height={50} priority/></Link>
+              <Link href={"/index"} style={{display:"flex", alignItems:"center"}}><Image className={Style.logo} style={{borderRadius:"10px"}} src={"/images/novo_logo.png"} alt="" width={100} height={50} priority/></Link>
               <Flex gap={"5"}>  
                 {load ? (
                     <>
