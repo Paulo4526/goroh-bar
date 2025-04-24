@@ -50,7 +50,7 @@ Aplicação full stack em Java usando ferramentas e conceitos como:
     npm run dev
 ```
 
-- Após a inicialização acessa aplicação pelo navegador pelo link: http://localhost:3000
+- Após a inicialização acessar aplicação no navegador pelo link: http://localhost:3000
 
 ## Documentação online Swagger(Em Desenvolvimento)
 
