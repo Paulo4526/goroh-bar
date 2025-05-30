@@ -9,7 +9,6 @@ import { GetUseContext } from "@/hooks/useContext";
 import Style from "./login.module.css"
 import { useLoginHandle } from "@/hooks/userManager/LoginAndSign/useLoginHandle";
 import { setTimeout } from "timers";
-import { redirect } from "next/navigation";
 
 const Login = () => {
     const [email, setEmail] = useState("")

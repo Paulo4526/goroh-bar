@@ -1,6 +1,6 @@
 "use client"
 
-import { Button, Dialog, Flex, Text } from "@radix-ui/themes";
+import { Dialog, Flex, Text } from "@radix-ui/themes";
 import { useEffect, useState } from "react";
 
 interface GetError{

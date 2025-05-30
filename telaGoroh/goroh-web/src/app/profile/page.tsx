@@ -2,7 +2,7 @@
 
 import UserProfile from "@/components/userProfile";
 import { GetUseContext } from "@/hooks/useContext";
-import { Flex, Section, Spinner} from "@radix-ui/themes";
+import { Flex, Section} from "@radix-ui/themes";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 

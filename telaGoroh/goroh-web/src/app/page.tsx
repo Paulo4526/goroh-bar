@@ -1,6 +1,6 @@
 "use client"
 
-import { Flex, Spinner } from "@radix-ui/themes"
+import { Flex} from "@radix-ui/themes"
 import { redirect } from "next/navigation"
 import { useEffect } from "react"
 

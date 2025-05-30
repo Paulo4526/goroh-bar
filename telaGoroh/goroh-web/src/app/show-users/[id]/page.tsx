@@ -1,7 +1,7 @@
 "use client"
 import UpdateUser from "@/components/updateUser"
 import { GetUseContext } from "@/hooks/useContext"
-import { Flex, Section, Spinner } from "@radix-ui/themes"
+import { Flex} from "@radix-ui/themes"
 import { redirect, useParams } from "next/navigation"
 import React, { useEffect, useState } from "react"
 

@@ -1,6 +1,6 @@
 
 import { GetUseContext } from "@/hooks/useContext";
-import { Button, DropdownMenu, Flex, Heading, Text } from "@radix-ui/themes";
+import { Button, DropdownMenu, Flex} from "@radix-ui/themes";
 import { redirect } from "next/navigation";
 import NewItem from "../menuITem";
 import { userSimple } from "@/hooks/userManager/userSimple/userSimple";

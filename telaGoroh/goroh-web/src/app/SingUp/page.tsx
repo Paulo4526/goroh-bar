@@ -2,7 +2,7 @@
 
 import { Singup } from "@/components/SingUp"
 import { GetUseContext } from "@/hooks/useContext";
-import { Flex, Section } from "@radix-ui/themes";
+import { Flex} from "@radix-ui/themes";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 

@@ -1,4 +1,4 @@
-import { Flex, Section } from "@radix-ui/themes"
+import { Flex} from "@radix-ui/themes"
 import { ReactNode } from "react"
 
 interface getProps {

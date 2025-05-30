@@ -1,6 +1,6 @@
 "use client"
 
-import { Button, Flex, Skeleton, Text } from "@radix-ui/themes"
+import { Button, Flex, Skeleton} from "@radix-ui/themes"
 import Link from "next/link"
 import ProfileMenu from "../profileMenu";
 import { useEffect, useState } from "react";

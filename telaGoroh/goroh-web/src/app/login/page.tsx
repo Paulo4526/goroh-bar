@@ -2,10 +2,9 @@
 
 import Login from "@/components/Login/login";
 import { GetUseContext } from "@/hooks/useContext";
-import { Flex, Section, Spinner } from "@radix-ui/themes";
+import { Flex} from "@radix-ui/themes";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
-import Image from "next/image"
 
 const LoginPage:React.FC = () => {
     const [load, setLoad] = useState<boolean>(false)

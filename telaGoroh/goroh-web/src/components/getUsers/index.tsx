@@ -1,6 +1,6 @@
 "use client"
 
-import { Button, Flex, Heading, Table, Text } from "@radix-ui/themes";
+import { Button, Flex, Heading, Text } from "@radix-ui/themes";
 import ErrorAlert from "../errorAlert";
 import { GetUseContext } from "@/hooks/useContext";
 import { useEffect, useState } from "react";

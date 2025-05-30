@@ -1,7 +1,6 @@
 import { BackpackIcon, ExitIcon, GearIcon, PersonIcon, PlayIcon, StarFilledIcon } from "@radix-ui/react-icons";
 import { DropdownMenu, Flex, Text } from "@radix-ui/themes";
 import { Responsive, Union } from "@radix-ui/themes/props";
-import { redirect } from "next/navigation";
 
 interface GetItems {
     name?: string | null;
