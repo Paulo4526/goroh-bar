@@ -1,57 +1,96 @@
-# Projeto Full Stack NextJS + TypeScript e Java + SpringBoot
-Aplicação full stack em Java usando ferramentas e conceitos como:
-- Rest e RestFull
-- Migrations
-- Lombok
-- SpringBoot(JPA, Data, Validations, Secutiry...)
-- JWToken
-- Swagger
-- Eureka Netflix
-- Spring Cloud
-- NextJS
-- TypeScript
-- RadixUI
+<h1>🚀 Projeto Full Stack NextJS + TypeScript & Java + Spring Boot</h1>
 
-## Pré-requisitos
-- Node 18 ou mais.
-- Java SDK 21
-- Docker
-- DBeaver
-- Intellij
-- VSCode
+<p>Aplicação full stack utilizando tecnologias modernas tanto no <strong>Back-End</strong> quanto no <strong>Front-End</strong>, com foco em:</p>
 
-## 1 - Criando banco de dados postgresSQL com docker
+<ul>
+  <li>🌐 Rest e RestFull APIs</li>
+  <li>📦 Migrations</li>
+  <li>🔗 Lombok</li>
+  <li>☕ Spring Boot (JPA, Data, Validations, Security...)</li>
+  <li>🔑 JWT (JSON Web Token)</li>
+  <li>📃 Swagger</li>
+  <li>🧭 Eureka Netflix</li>
+  <li>☁️ Spring Cloud</li>
+  <li>⚛️ NextJS</li>
+  <li>📝 TypeScript</li>
+  <li>🎨 RadixUI</li>
+</ul>
 
-```sh
-  docker run -dti --name post-full -p 5432:5432 -e POSTGRES_PASSWORD=123 -e POSTGRES_USER=postgres -e POSTGRES_DB=postgres postgres
-```
+<hr>
 
-## 2 - Subindo as aplicações Back-End(Em Desenvolvimento)
+<h2>📌 Pré-requisitos</h2>
 
-- 1 - Abra o Intellij e selecione a pasta service do projeto
-- 2 - Após subir a aplicação, veremos que o nosso serviço de descoberta Eureka estará online no link: http://localhost:5050.
-- 3 - Agora subiremos a aplicação gateway, novamente com o Intellij selecionaremos na pasta a aplicação gateway
-- 4 - Verificando nosso serviço de descoberta no link fornecido veremos que a aplicação gateway se registrou no servidor.
-- 5 - Subindo a aplicação goroh, novamente com o Intellij selecionaremos a aplicação goroh, responsável pelo cadastro de novos usuários, login e gerenciamento de usuários
-- 6 - Aplicação gorohBebidas(Em desenvolvimento)
+<ul>
+  <li>✅ Node.js v18 ou superior</li>
+  <li>✅ Java SDK 21</li>
+  <li>✅ Docker</li>
+  <li>✅ DBeaver</li>
+  <li>✅ IntelliJ IDEA</li>
+  <li>✅ VS Code</li>
+</ul>
 
+<hr>
 
-## 3 - Iniciando a aplicação Front-End(Em Desenvolvimento)
+<h2>🛠️ 1 - Criando o Banco de Dados PostgreSQL com Docker</h2>
 
-- Abra o VSCode e selecione dentro da pasta telaGoroh a pasta goroh-web, em seguida realize o comanxo abaixo:
- 
-```sh
-  npm install
-```
+<pre>
+<code>
+docker run -dti --name post-full -p 5432:5432 -e POSTGRES_PASSWORD=123 -e POSTGRES_USER=postgres -e POSTGRES_DB=postgres postgres
+</code>
+</pre>
 
-- Após a instalação das dependências, realizar o comando para inicializar a aplicação Front-End:
+<hr>
 
-```sh
-    npm run dev
-```
+<h2>🚀 2 - Subindo as Aplicações Back-End (Em Desenvolvimento)</h2>
 
-- Após a inicialização acessar aplicação no navegador pelo link: http://localhost:3000
+<details>
+  <summary><strong>📌 Passo a Passo</strong></summary>
+  <ol>
+    <li>Abra o <strong>IntelliJ IDEA</strong> e selecione a pasta <code>service</code> do projeto.</li>
+    <li>Inicie a aplicação principal. Verifique se o serviço de descoberta <strong>Eureka</strong> está online:  
+      👉 <a href="http://localhost:5050" target="_blank">http://localhost:5050</a>
+    </li>
+    <li>Abra a aplicação <code>gateway</code> no IntelliJ e execute-a.</li>
+    <li>Verifique no Eureka se a aplicação <strong>Gateway</strong> foi registrada.</li>
+    <li>Abra a aplicação <code>goroh</code> (responsável por cadastro, login e gerenciamento de usuários) e execute-a.</li>
+    <li>Aplicação <code>gorohBebidas</code>: <em>(Em desenvolvimento)</em></li>
+  </ol>
+</details>
 
-## Documentação online Swagger(Em Desenvolvimento)
+<hr>
 
-- Link para acessar o swagger: http://localhost:8080/swagger-ui/index.html#/
+<h2>🌐 3 - Iniciando a Aplicação Front-End (Em Desenvolvimento)</h2>
+
+<details>
+  <summary><strong>📌 Passo a Passo</strong></summary>
+  <ol>
+    <li>Abra o <strong>VS Code</strong> e navegue até a pasta:  
+    <code>telaGoroh/goroh-web</code></li>
+
+    <li>Instale as dependências:</li>
+    <pre>
+<code>npm install</code>
+</pre>
+
+    <li>Inicie a aplicação:</li>
+    <pre>
+<code>npm run dev</code>
+</pre>
+
+    <li>Acesse no navegador:  
+    👉 <a href="http://localhost:3000" target="_blank">http://localhost:3000</a></li>
+  </ol>
+</details>
+
+<hr>
+
+<h2>📚 4 - Documentação Online Swagger (Em Desenvolvimento)</h2>
+
+<ul>
+  <li>Acesse a documentação da API via Swagger:  
+  👉 <a href="http://localhost:8080/swagger-ui/index.html#/" target="_blank">http://localhost:8080/swagger-ui/index.html#/</a></li>
+</ul>
+
+<hr>
+
+<p><strong>🛠️ Status Atual:</strong> Em desenvolvimento com foco na integração de microsserviços e autenticação JWT.</p>
