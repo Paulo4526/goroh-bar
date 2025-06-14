@@ -63,23 +63,29 @@ docker run -dti --name post-full -p 5432:5432 -e POSTGRES_PASSWORD=123 -e POSTGR
 
 <details>
   <summary><strong>📌 Passo a Passo</strong></summary>
+
   <ol>
-    <li>Abra o <strong>VS Code</strong> e navegue até a pasta:  
-    <code>telaGoroh/goroh-web</code></li>
+    <li>
+      Abra o <strong>VS Code</strong> e navegue até a pasta:<br>
+      <code>telaGoroh/goroh-web</code>
+    </li>
 
-    <li>Instale as dependências:</li>
-    <pre>
-<code>npm install</code>
-</pre>
+    <li>
+      Instale as dependências:
+      <pre><code>npm install</code></pre>
+    </li>
 
-    <li>Inicie a aplicação:</li>
-    <pre>
-<code>npm run dev</code>
-</pre>
+    <li>
+      Inicie a aplicação:
+      <pre><code>npm run dev</code></pre>
+    </li>
 
-    <li>Acesse no navegador:  
-    👉 <a href="http://localhost:3000" target="_blank">http://localhost:3000</a></li>
+    <li>
+      Acesse no navegador:<br>
+      👉 <a href="http://localhost:3000" target="_blank">http://localhost:3000</a>
+    </li>
   </ol>
+
 </details>
 
 <hr>
